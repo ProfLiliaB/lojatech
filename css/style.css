@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+    --bege: rgb(245, 245, 220);
+    --azul: rgb(0, 71, 171);
+    --laranja: rgb(255, 111, 0);
+    --cinza: rgb(51, 51, 51);
+    --arredondar: 0.3rem;
+    --oswald: "Oswald", sans-serif;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bege);
+    overflow-x: hidden;
+    font-family: var(--oswald);
+}
+header {
+    width: 100%;
+}
+/* --------- CARROSSEL ----------- */
+.carrossel {
+    width: 100%;
+    overflow: hidden;
+}
+.carrossel img {
+    width: 100%;
+}
+.imagem-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.conteudo_central {
+    width: 100%;
+    max-width: 100%;
+    min-height: calc(100vh - 250px);
+    padding: 2rem;
+}
+.legenda {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    color: var(--bege);
+    text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
+}
+.legenda span p {
+    font-family: "Caveat", cursive;
+    font-size: 1.5rem;
+}
+/* ----------  BTN LISTAR --------- */
+.btn_listar {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn_listar a {
+    background-color: var(--laranja);
+    color: var(--bege);
+    padding: .5rem 1rem;
+    text-decoration: none;
+    border-radius: var(--arredondar);
+}
