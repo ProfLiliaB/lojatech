@@ -23,7 +23,7 @@ if ($_SESSION['id_usuario']) {
     //============================ Dados para integrar pagto do Mercado Pago =======================
     //
     $url = 'https://api.mercadopago.com/checkout/preferences';
-    $access_token = 'TEST-5232080259225545-042515-bfeaf6dff3b3fd59594bb4d9ffe6525f-22727655';
+    $access_token = '';
     //inicia a sessão
     session_start();
     $itens = [];

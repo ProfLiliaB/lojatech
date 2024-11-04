@@ -1,0 +1,55 @@
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivo de conexão
+conexao.php
+
+# Ignorar arquivos antigos
+*_OLD.php
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar diretórios de dependências
+/vendor/
+node_modules/
+
+# Ignorar arquivos de configuração do ambiente
+.env
+.env.local
+
+# Ignorar arquivos temporários
+*.tmp
+*.temp
+
+# Ignorar caches
+/cache/
+*.cache
+
+# Ignorar uploads e arquivos gerados
+/uploads/
+*.zip
+*.tar.gz
+*.tgz
+
+# Ignorar arquivos de backup
+*~
+*.bak
+*.swp
+
+# Ignorar arquivos de IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignorar arquivos de build
+/dist/
+build/
+
+# Ignorar arquivos de configuração do Composer
+composer.lock
+
+# Ignorar arquivos de teste
+/tests/
