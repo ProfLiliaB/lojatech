@@ -1,0 +1,144 @@
+nav {
+    width: 100%;
+    background: var(--azul);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 5px 2px rgb(255, 255, 255);
+}
+
+nav a {
+    color: var(--beje);
+    text-decoration: none;
+}
+
+nav .logo {
+    margin-left: .5rem;
+}
+
+nav ul {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem 1rem;
+    margin-right: 1rem;
+    height: 3rem;
+}
+
+nav ul li:hover:not(:first-child) {
+    background:rgba(1, 55, 130, 0.5);
+}
+
+nav ul li form {
+    display: flex;
+}
+
+nav ul li form input {
+    text-indent: .5rem;
+    height: 2rem;
+    outline: 0;
+    border: none;
+    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
+    border-top-left-radius: var(--arredondar);
+    border-bottom-left-radius: var(--arredondar);
+}
+
+nav form button {
+    height: 2rem;
+    background-color: var(--laranja);
+    color: var(--beje);
+    border: none;
+    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
+    padding: 0 .5rem;
+    border-top-right-radius: var(--arredondar);
+    border-bottom-right-radius: var(--arredondar);
+    cursor: pointer;
+}
+
+#cadastrese,
+#login {
+    background-color: var(--laranja);
+    color: var(--beje);
+    padding: .3rem .5rem;
+    height: 2rem;
+    box-shadow: 2px 2px 3px rgba(51, 51, 51, 0.5);
+    border-radius: var(--arredondar);
+}
+
+.hamburguer {
+    display: none;
+    background: transparent;
+    border: transparent;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--beje);
+    margin-right: .7rem;
+}
+
+.toggle {
+    display: flex;
+}
+
+@media screen and (max-width:425px) {
+    nav {
+        align-items: flex-start;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:0;
+    }
+
+    nav ul li {
+        text-align: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    nav ul li form input {
+        width: 100%;
+    }
+
+    .hamburguer {
+        display: block;
+    }
+}
+
+@media screen and (min-width:426px) and (max-width:767px) {
+    nav {
+        align-items: flex-start;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:0;
+    }
+
+    nav ul li {
+        text-align: center;
+        width: 100%;
+    }
+
+    nav ul li form input {
+        width: 100%;
+    }
+
+    .hamburguer {
+        display: block;
+    }
+}

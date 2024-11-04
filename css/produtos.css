@@ -1,0 +1,220 @@
+/* --------------Cards PRODUTOS ---------------*/
+#produtos {
+  display: grid;
+  resize: horizontal;
+  padding: 10px;
+  margin: 0 auto;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #0047ab;
+  width: 100%;
+  max-width: 200px;
+  margin: auto;
+  height: 300px;
+  padding: 0.5rem;
+  border-radius: var(--arredondar);
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  margin: auto;
+  max-width: 100px;
+}
+
+.card-header {
+  text-align: center;
+  font-weight: 600;
+}
+
+.card-body {
+  text-align: center;
+  min-height: 100px;
+}
+
+.card-footer {
+  text-align: center;
+  font-weight: 600;
+}
+
+.btn-comprar {
+  width: 100%;
+  max-width: 200px;
+  margin: auto;
+  padding: 0 1rem;
+  border-radius: var(--arredondar);
+  background: var(--azul);
+  box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.btn-comprar a {
+  /* padding: 1rem .5rem; */
+  text-decoration: none;
+  color: #fff;
+}
+
+.card div {
+  padding-bottom: 0.3rem;
+}
+
+.card-valor {
+  text-decoration: line-through;
+  color: #fa0303;
+}
+
+.card-oferta {
+  color: var(--azul);
+  font-size: 22px;
+}
+
+/* ------------------- estrelinhas ---------------- */
+.star {
+  color: #ffbf00;
+}
+
+/* ------------------- Container ---------------- */
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+}
+
+.container form {
+  display: flex;
+  width: 100%;
+  justify-content:center;
+}
+.container form input,
+.container form select {
+  text-indent: 0.2rem;
+  height: 2rem;
+  outline: none;
+  border: none;
+  box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
+}
+
+.container form input:nth-child(1) {
+  border-top-left-radius: var(--arredondar);
+  border-bottom-left-radius: var(--arredondar);
+}
+
+.container form button {
+  background-color: var(--laranja);
+  color: var(--beje);
+  padding: 0 1rem;
+  border-top-right-radius: var(--arredondar);
+  border-bottom-right-radius: var(--arredondar);
+  border: none;
+  box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
+}
+
+.container_descricao h1 {
+  font-size: 1.1rem;
+  text-align: justify;
+}
+
+.container_detalhes {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.container_footer {
+  display: flex;
+  margin: auto;
+}
+
+.container_footer div {
+  min-width: 10rem;
+}
+.tabs_menu {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+.tabs_menu li:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.tabs_menu li {
+  cursor: pointer;
+  width: calc(100% / 4);
+  color: #0047ab;
+  text-decoration: none;
+  padding: 0.7rem 2rem;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+  border: 1px outset rgba(51, 51, 51, 0.5);
+  background-color: rgba(120, 120, 120, 0.5);
+}
+
+.tabs_menu li.active {
+  color: black;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.tabs_item {
+  display: none;
+}
+.tabs_item.active {
+  position: relative;
+  display: block;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+  border: 1px outset rgba(51, 51, 51, 0.5);
+  border-top: none;
+  background-color: rgb(255, 255, 255);
+  z-index: 2;
+}
+.tab_conteudo {
+  padding: 1rem;
+}
+@media screen and (max-width: 425px) {
+  .container form {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .container form input,
+  .container form select {
+    width: 100%;
+    border-radius:0;
+  }
+  
+  .container form button {
+    padding: .5rem 1.5rem;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width: 767px) {
+  .container form {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .container form input,
+  .container form select {
+    width: 100%;
+    border-radius:0;
+  }
+  
+  .container form button {
+    padding: .5rem 1.5rem;
+    width: 100%;
+    border-radius:0;
+  }
+}

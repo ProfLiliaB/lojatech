@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=M+PLUS+Rounded+1c&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/*
+|||||||||||||||||||||||||||||||||||||||||||
+|                  FONTS                  |
+font-family: "Caveat", cursive; -> cursiva
+font-family: "Chakra Petch", sans-serif;
+font-family: "M PLUS Rounded 1c", sans-serif;
+font-family: "Roboto", sans-serif;
+font-family: "Oswald", sans-serif;
+*/
+:root {
+    --beje: rgb(245, 245, 220);
+    --azul: rgb(0, 71, 171);
+    --laranja: rgb(255, 111, 0);
+    --cinza: rgb(51, 51, 51);
+    --arredondar: .3rem;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--beje);
+    color: var(--cinza);
+    overflow-x: hidden;
+    font-family: "Oswald", sans-serif;
+}
+
+header {
+    width: 100%;
+}
+
+/*------------------ CARROSSEL ------------------- */
+.carrossel {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carrossel img {
+    width: 100%;
+}
+
+.imagem-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.conteudo_central {
+    width: 100%;
+    max-width: 100%;
+    min-height: calc(100vh - 250px);
+    padding: 2rem;
+}
+
+.legenda {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    top: 60px;
+    color: white;
+    width: 100%;
+    height: 35%;
+    text-align: center;
+    text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
+}
+.legenda span p {
+    font-family: "Caveat", cursive;
+    font-size: 1.5rem;
+}
+/* -------------- BOTÃO LISTAR PRODUTOS HOME ---------------*/
+.btn_listar {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.btn_listar a {
+    background-color: var(--laranja);
+    color: var(--beje);
+    padding: .5rem 1rem;
+    text-decoration: none;
+    font-size: 1.5rem;
+    border-radius: var(--arredondar);
+}
+/*============== DIALOG ================*/
+dialog {
+    margin:15% auto;
+    font-size: 1.3rem;
+    border: 1px solid rgb(212, 175, 55);
+    background:rgba(255, 255, 255, .5);
+    text-align: center;
+    width: 250px;
+    padding: 2%;
+    z-index: 55;
+    backdrop-filter: blur(5px);
+    color: var(--azul);
+    animation: fadeScale 1s;
+}
+dialog div {
+    margin:2% auto;
+    padding-top: 5%;
+    text-align: center;
+    height: 70px;
+    font-size: 1.3rem;
+}
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+dialog button {
+    width: 100%;
+    height: 2.5rem;
+    cursor: pointer;
+    border: thin outset rgba(255, 255, 255, 0.5);
+    border-radius: var(--arredondar);
+    background: var(--azul);
+    box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    font-family: "Oswald", sans-serif;
+}
+/*========== FIM DIALOG ==========*/
+@media screen and (max-width:425px) {
+    .legenda {
+        top: 25%;
+        font-size: .5rem;
+    }
+}
+
+@media screen and (min-width:426px) and (max-width:767px) {
+    .legenda {
+        top: 15%;
+        font-size: .8rem;
+    }
+}

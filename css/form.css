@@ -1,0 +1,68 @@
+.formulario_geral {
+    width: 100%;
+    max-width: 1440px;
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+}
+#form_cadastro, #form_login {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1.5rem;
+}
+#form_login {
+    max-width: 300px;
+}
+#form_login h1, #form_cadastro h1 {
+    max-width: 300px;
+    background-color: var(--laranja);
+    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+#form_cadastro h1 {
+    max-width: 700px;
+}
+.form_grupo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding:0.2rem 0;
+}
+.form_input {
+    width: 100%;
+    text-indent: .5rem;
+    height: 2rem;
+    outline: 0;
+    border: none;
+    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
+}
+.form_btn {
+    width: 100%;
+    height: 2.5rem;
+    cursor: pointer;
+    border: thin outset rgba(255, 255, 255, 0.5);
+    border-radius: var(--arredondar);
+    background: var(--azul);
+    box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    font-family: "Oswald", sans-serif;
+}
+.alert-success {
+    color: rgb(29, 73, 2);
+    background-color: rgba(143, 233, 87, 0.5);
+    text-align: center;
+}
+.alert-danger {
+    color: rgb(77, 13, 5);
+    background-color: rgba(233, 135, 122, 0.5);
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: var(--laranja);
+}
