@@ -37,29 +37,21 @@
                     <input type="text" name="nome" id="nome" class="form_input">
                 </div>
                 <div class="form_grupo">
-                <label>Categoria</label>
-                <select name="id_categoria" id="id_categoria" class="form_input">
-                <option value="0">-- Selecione uma Categoria --</option>    
-                <?php
-                 // Conexão com o banco de dados - Não copiar o que está em cinza
-                include_once "conexao.php";
- 
-                $sql = "SELECT * FROM categorias order by nome_categoria";
-                $stmt = $conexao->prepare($sql);
-                $stmt->execute();
-                
-                while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $id_categoria = $array['id_categoria'];
-                    $nome_categoria = $array['nome_categoria'];
-                ?>
-                    <option value="<?php echo $id_categoria; ?>">
-                    <?php echo $nome_categoria; ?>
-                    </option>
-                <?php
-                }
-                ?>
-                </select>  
-
+                    <label>Categoria</label>
+                    <select name="id_categoria" id="id_categoria" class="form_input">
+                        <option value="0">-- Selecione uma Categoria --</option>
+                        <?php
+                        include_once "conexao.php";
+                        $sql = "SELECT * FROM categorias order by nome_categoria";
+                        $stmt = $conexao->prepare($sql);
+                        $stmt->execute();
+                        while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $id_categoria = $array['id_categoria'];
+                            $nome_categoria = $array['nome_categoria'];
+                            echo '<option value="' . $id_categoria . '">' . $nome_categoria . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="form_grupo">
                     <label for="valor">Valor: </label>
@@ -74,15 +66,15 @@
                 </div>
                 <div class="form_grupo">
                     <?php
-                    $msg = $_GET['msg']??"";
+                    $msg = $_GET['msg'] ?? "";
                     echo $msg;
                     ?>
                 </div>
             </form>
-        </div>        
+        </div>
     </main>
     <?php
-        include_once "../footer.php";
+    include_once "../footer.php";
     ?>
     <script src="../js/menu.js"></script>
 </body>

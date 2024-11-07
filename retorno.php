@@ -26,23 +26,6 @@
     <main>
         <div class="conteudo_central">
             <?php
-            /*
-            Array
-            (
-                [msg] => successo
-                [collection_id] => 1327853149
-                [collection_status] => approved
-                [payment_id] => 1327853149
-                [status] => approved
-                [external_reference] => null
-                [payment_type] => credit_card
-                [merchant_order_id] => 24342003400
-                [preference_id] => 22727655-05d36998-a0f4-4d35-913a-9938775d94a1
-                [site_id] => MLB
-                [processing_mode] => aggregator
-                [merchant_account_id] => null
-            )
-            */
             include_once "conexao.php";
             $novo_pagto = [
                 'msg'                 => $_GET['msg'],
@@ -70,7 +53,6 @@
             $pagto = $conexao->prepare($sql);
             if ($pagto->execute($novo_pagto)) {
                 echo '<div>Pagamento ' . $novo_pagto['status'] . ' <a href="detalhe_pedido.php?id=' . $novo_pagto['payment_id'] . '">Detalhes do pedido</a></div>';
-                //echo '<div><a href="pedidos.php?id='.$_SESSION['id_usuario'].'">Meus Pedidos</a></div>';
             } else {
                 echo "Erro finalizar o pagamento.";
             }

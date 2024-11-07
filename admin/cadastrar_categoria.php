@@ -34,24 +34,22 @@
             <form action="processar_categoria.php" method="post" id="form_cadastro">
                 <div class="form_grupo">
                     <label for="nome">Nome: </label>
-                    <input type="text" name="nome" id="nome"  class="form_input">
+                    <input type="text" name="nome" id="nome" class="form_input">
                 </div>
-
-
                 <div class="form_grupo">
                     <button type="submit" class="form_btn">CADASTRAR</button>
                 </div>
                 <div class="form_grupo">
                     <?php
-                    $msg = $_GET['msg']??"";
+                    $msg = $_GET['msg'] ?? "";
                     echo $msg;
                     ?>
                 </div>
             </form>
-        </div>        
+        </div>
     </main>
     <?php
-        include_once "../footer.php";
+    include_once "../footer.php";
     ?>
     <script src="../js/menu.js"></script>
 </body>
