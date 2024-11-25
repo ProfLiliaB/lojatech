@@ -1,4 +1,4 @@
-<nav id="nav">
+<nav class="nav" id="nav">
     <a href="./" class="logo"><i class="icofont-micro-chip icofont-2x"></i></a>
     <ul>
         <li>
@@ -7,8 +7,8 @@
                 <button type="submit"><i class="icofont icofont-search"></i></button>
             </form>
         </li>
-        <li><a href="lista_produtos.php?pesquisa=''"><i class="icofont-duotone icofont-cube"></i> Produtos</a></li>
-        <li><a href="listar_categorias.php"><i class="icofont-duotone icofont-list"></i> Categorias</a></li>
+        <li><a href="lista_produtos.php"><i class="icofont-duotone icofont-cube"></i> Produtos</a></li>
+        <li></li>
         <li><a href="carrinho.php"><i class="icofont-duotone icofont-cart"></i> Carrinho</a></li>
         <?php
         @session_start();
@@ -24,7 +24,7 @@
         ?>
     </ul>
     <button id="hamburguer" class="hamburguer"><i class="icofont icofont-navigation-menu"></i></button>
-</nav><!-- Fecha NAV -->
+</nav>
 <dialog id="avisos">
     <div id="errorMessage"></div>
     <button id="fechar">OK</button>

@@ -1,0 +1,67 @@
+#paginacao {
+    padding: 0;
+}
+#paginacao nav {
+    padding: 0;
+    width: 100%;
+    background: var(--azul);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 5px 2px rgb(255, 255, 255);
+}
+#paginacao a {
+    color: var(--beje);
+    text-decoration: none;
+    font-size: 1rem;
+}
+#paginacao a:focus {
+    color: var(--laranja);
+}
+#paginacao ul {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#paginacao ul li {
+    padding: .5rem 1rem;
+}
+#paginacao ul li:not(:nth-last-child(1)) {
+    border-right: thin solid rgba(1, 55, 130, 0.5);
+}
+#paginacao ul li:hover {
+    background:rgba(1, 55, 130, 0.5);
+}
+#produtos h5 {
+    display: inline;
+    text-align: center;
+}
+#paginacao ul li a.ativo {
+    color: var(--laranja);
+    font-weight: bold; 
+}
+
+#form_filtro button {
+    position: relative;
+    cursor: pointer;
+}
+
+#form_filtro button:hover::after {
+    content: 'Limpar filtros'; 
+    position: absolute;
+    background-color: var(--beje);
+    color: var(--azul);
+    padding: 5px 10px;
+    border-radius: var(--arredondar);
+    white-space: nowrap;
+    top: 40%;
+    right: -50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}

@@ -77,14 +77,15 @@
                             }
                             echo '
                                 <tr>
-                                    <td colspan="5" class="alert-danger">
-                                        <a href="limpa_carrinho.php"><i class="fa fa-trash"></i> Limpar</a>
+                                    <td colspan="4"></td>
+                                    <td class="alert-danger">
+                                        <a href="limpa_carrinho.php?pg=carrinho"><i class="fa fa-trash"></i> Limpar</a>
                                     </td>
                                 </tr>';
                         } else {
                             echo '
                             <tr>
-                                <td colspan="5">Seu carrinho ainda está vazio <i class="fa fa-cart-arrow-down"></i></td>
+                                <td colspan="5" class="vazio">Seu carrinho ainda está vazio <i class="fa fa-cart-arrow-down"></i></td>
                             </tr>';
                         }
                         ?>
@@ -93,15 +94,15 @@
                 <div class="finalizar">
                     <div class="frete">
                         <form action="" method="post">
-                            <div for="frete">Calcula Frete </div>
+                            <div for="frete">Frete </div>
                             <input type="text" name="frete" id="frete">
                             <button type="submit" class="btn-comprar"> OK </button>
-                            <div class="saida_frete">Gratis</div>
                         </form>
                     </div>
+                    <div class="frete">Frete R$ 00,00</div>
                     <div class="desconto_final">Descontos R$ 00,00</div>
                     <div class="total_final">TOTAL A PAGAR R$ <?=$totalcarrinho?></div>
-                    <div class="btn-finalizar"><a href="pagto.php"><i class="fa fa-money"></i> Finalizar </a></div>
+                    <div class="btn-finalizar"><a href="pagto.php"><i class="fa fa-money"></i> PAGAR </a></div>
                 </div>
             </section>
         </div>

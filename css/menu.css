@@ -1,4 +1,4 @@
-nav {
+header nav {
     width: 100%;
     background: var(--azul);
     display: flex;
@@ -7,16 +7,17 @@ nav {
     box-shadow: 2px 5px 2px rgb(255, 255, 255);
 }
 
-nav a {
+header nav a {
     color: var(--beje);
     text-decoration: none;
+    text-wrap: nowrap;
 }
 
-nav .logo {
+header nav .logo {
     margin-left: .5rem;
 }
 
-nav ul {
+header nav ul {
     list-style: none;
     width: 100%;
     display: flex;
@@ -24,7 +25,7 @@ nav ul {
     align-items: center;
 }
 
-nav ul li {
+header nav ul li {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,15 +34,15 @@ nav ul li {
     height: 3rem;
 }
 
-nav ul li:hover:not(:first-child) {
+header nav ul li:hover:not(:first-child) {
     background:rgba(1, 55, 130, 0.5);
 }
 
-nav ul li form {
+header nav ul li form {
     display: flex;
 }
 
-nav ul li form input {
+header nav ul li form input {
     text-indent: .5rem;
     height: 2rem;
     outline: 0;
@@ -51,7 +52,7 @@ nav ul li form input {
     border-bottom-left-radius: var(--arredondar);
 }
 
-nav form button {
+header nav form button {
     height: 2rem;
     background-color: var(--laranja);
     color: var(--beje);
@@ -88,11 +89,10 @@ nav form button {
 }
 
 @media screen and (max-width:425px) {
-    nav {
+    header nav {
         align-items: flex-start;
     }
-
-    nav ul {
+    header nav ul {
         display: none;
         flex-direction: column;
         justify-content: center;
@@ -100,14 +100,14 @@ nav form button {
         gap:0;
     }
 
-    nav ul li {
+    header nav ul li {
         text-align: center;
         width: 100%;
         padding: 0;
         margin: 0;
     }
 
-    nav ul li form input {
+    header nav ul li form input {
         width: 100%;
     }
 
@@ -117,11 +117,11 @@ nav form button {
 }
 
 @media screen and (min-width:426px) and (max-width:767px) {
-    nav {
+    header nav {
         align-items: flex-start;
     }
 
-    nav ul {
+    header nav ul {
         display: none;
         flex-direction: column;
         justify-content: center;
@@ -129,12 +129,12 @@ nav form button {
         gap:0;
     }
 
-    nav ul li {
+    header nav ul li {
         text-align: center;
         width: 100%;
     }
 
-    nav ul li form input {
+    header nav ul li form input {
         width: 100%;
     }
 

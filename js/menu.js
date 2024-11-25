@@ -1,4 +1,4 @@
-const nav = document.querySelector('#nav ul')
+const nav = document.querySelector('header nav ul')
 const hamburguer = document.getElementById('hamburguer')
 hamburguer.addEventListener('click', () => {
     nav.classList.toggle('toggle')

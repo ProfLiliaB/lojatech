@@ -57,11 +57,22 @@
 }
 
 .btn-comprar a {
-  /* padding: 1rem .5rem; */
   text-decoration: none;
   color: #fff;
 }
-
+.btn-comprar button {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #fff;
+}
+button.comprar {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: .3rem 2rem;
+  cursor: pointer;
+  font-family: "Oswald", sans-serif;
+}
 .card div {
   padding-bottom: 0.3rem;
 }

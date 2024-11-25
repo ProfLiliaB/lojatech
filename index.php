@@ -39,7 +39,7 @@
                 <!-- Produto 1 -->
                 <?php
                 include_once "conexao.php";
-                $sql = "SELECT * FROM produto p INNER JOIN categoria c ON p.id_cat = c.id_cat";
+                $sql = "SELECT p.*, c.* FROM produto p INNER JOIN categoria c ON p.id_categoria = c.id_categoria LIMIT 5";
                 $stmt = $conexao->prepare($sql);
                 $stmt->execute();
                 //loop para exibir todos os registros encontrados    
@@ -47,7 +47,7 @@
                     $id_produto = $array['id_produto'];
                     $nome_produto = $array['nome_produto'];
                     $valor_produto = $array['valor'];
-                    $nome_categoria = $array['nome_categoria'];
+                    $nome_categoriaegoria = $array['nome_categoria'];
                     $selectImg = $conexao->prepare("SELECT * FROM imagem WHERE status_imagem = 1 && id_produto = ?");
                     $selectImg->execute([$id_produto]);
                     if ($selectImg->rowCount()) {

@@ -1,7 +1,8 @@
 <?php
 include_once "conexao.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $pag = $_SESSION['pg'].'.php'??'./';
+    session_start();
+    $pag = isset($_SESSION['pg'])?$_SESSION['pg'].'.php':'';
     if(!file_exists($pag)) {
         $pag = "./";
     }
@@ -14,12 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($array) {
         $senha_banco = $array['senha'];
         $email_banco = $array['email'];
-        $nome = $array['nome'];
         $id_usuario =  $array['id_usuario'];
-        if ($email == $email_banco && password_verify($senha, $senha_banco)) {
-            session_start();
+        if (($email == $email_banco) && ($senha == $senha_banco)) {
+        //if ($email == $email_banco && password_verify($senha, $senha_banco)) {
+            //session_start();
             $_SESSION['email'] = $email_banco;
-            $_SESSION['nome'] = $nome;
+            $_SESSION['nome'] = $array['nome'];
+            $_SESSION['cpf'] = $array['cpf'];
             $_SESSION['id_usuario'] = $id_usuario;
             header('Location: '.$pag);
         } else {

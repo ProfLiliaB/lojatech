@@ -13,111 +13,94 @@
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/produtos.css">
+    <link rel="stylesheet" href="css/paginacao.css">
 </head>
 
 <body>
     <header>
         <?php
         include_once "menu.php";
+        include_once "admin/config.php";
+        include_once "conexao.php";
+        $pg_atual = isset($_GET['pg']) ? intval($_GET['pg']) : 1;
+        $maiorValor = valoMaximo($conexao);
         ?>
         <section class="carrossel">
             <div class="container">
-                <form method="POST">
-                    <input type="text" id="nome" name="nome" placeholder="Por nome">
+                <form method="post" id="form_filtro">
+                    <input type="text" id="filtro" name="filtro" placeholder="Pesquisa"
+                        value="<?= $_SESSION['param']['filtro'] ?? '' ?>">
                     <select id="categoria" name="categoria">
-                        <option value="">Categoria</option>
+                        <option value="">Todos</option>
                         <?php
-                        //Inclui a conexão
-                        include_once "conexao.php";
                         $select_cat = $conexao->prepare("SELECT * FROM categoria");
                         $select_cat->execute();
                         while ($res = $select_cat->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<option value="' . $res['id_cat'] . '">' . $res['nome_categoria'] . '</option>';
+                            $selected = "";
+                            $filto_cat =  $_SESSION['param']['categoria'] ?? '';
+                            if ($filto_cat == $res['id_categoria']) {
+                                $selected = 'selected';
+                            }
+                            echo '<option value="' . $res['id_categoria'] . '" ' . $selected . '>' . $res['nome_categoria'] . '</option>';
                         }
                         ?>
                     </select>
-                    <input type="text" id="valor_max" name="valor_max" placeholder="Até R$">
-                    <button type="submit">Filtrar</button>
+                    <input id="valMax" class="range" name="valMax" type="range" min="0"
+                        max="<?=$maiorValor?>" value="<?= $_SESSION['param']['valMax'] ?? $maiorValor ?>" step="100" />
+                    <button id="limpar_filtros" class="btn"><i class="fa fa-trash"></i></button>
                 </form>
             </div>
         </section>
     </header>
     <main>
         <div class="conteudo_central">
-            <section id="produtos">
-                <?php
-                include_once "conexao.php";
-                $sql = "SELECT * FROM produto p INNER JOIN categoria c ON p.id_cat = c.id_cat";
-                //array que conterá todos os parametros selecionados no filtro
-                $parametro = [];
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    //verifica se foi usado filtro por categoria
-                    if (!empty($_POST['categoria'])) {
-                        $sql .= " WHERE c.id_cat = :categoria";
-                        $parametro['categoria'] = $_POST['categoria'];
-                    }
-                    //Filtro por nome
-                    if (!empty($_POST['nome'])) {
-                        $sql .= " AND p.nome_produto LIKE :nome";
-                        $parametro['nome'] = "%" . $_POST['nome'] . "%";
-                    }
-                    ///filtro por valor máximo
-                    if (!empty($_POST['valor_max'])) {
-                        $sql .= " AND p.valor <= :valor_max";
-                        $parametro['valor_max'] = $_POST['valor_max'];
-                    }
-                }
-                //prepara a consulta sql
-                $select = $conexao->prepare($sql);
-                //executa a consulta sql
-                $select->execute($parametro);
-                //loop para exibição de todos os registros  
-                while ($prod = $select->fetch()) {
-                    $id_produto = $prod['id_produto'];
-                    $nome_produto = $prod['nome_produto'];
-                    $valor_produto = $prod['valor'];
-                    $nome_categoria = $prod['nome_categoria'];
-                    $selectImg = $conexao->prepare("SELECT * FROM imagem WHERE status_imagem = 1 && id_produto = ?");
-                    $selectImg->execute([$id_produto]);
-                    if($selectImg->rowCount()) {
-                        $imagem = $selectImg->fetch()['nome_imagem'];
-                    } else {
-                        $imagem = "celularA54.jfif";
-                    }
-                    echo '
-                    <div class="card">
-                        <div class="card-header">
-                            '.$nome_produto.'
-                        </div>
-                        <div class="card-body">
-                            <a href="detalhes_produto.php">';            
-                        echo '<img src="img/' . $imagem . '" width="200" />';
-                    echo '</a>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-valor">R$ ' . number_format($valor_produto, 2, ', ', ' . ') . '</div>
-                            <div class="card-oferta">R$ ' . number_format($valor_produto, 2, ', ', ' . ') . '</div>
-                            <div class="btn-comprar">
-                                <a href="add_carrinho.php?id='.$id_produto.'&pg=lista_produtos">Comprar</a>
-                            </div>
-                            <div class="star">
-                                <span>☆</span>
-                                <span>☆</span>
-                                <span>☆</span>
-                                <span>☆</span>
-                                <span>☆</span>
-                            </div>
-                        </div>
-                    </div>';
-                }
-                ?>
-            </section>
+            <span id="list_filtros"></span>
+            <div id="lista_produtos"></div>
         </div>
     </main>
     <?php
     include_once "footer.php";
     ?>
     <script src="js/menu.js"></script>
+    <script src="js/add_carrinho.js"></script>
+    <script>
+        const list_filtros = document.getElementById('list_filtros')
+        const listaProdutos = document.getElementById('lista_produtos')
+        listaProdutos.innerHTML = "Carregando...";
+        const form_filtro = document.getElementById('form_filtro');
+        const dados = document.getElementById('lista_produtos');
+        listarDados();
+        form_filtro.addEventListener('input', (ev) => {
+            ev.preventDefault();
+            if(ev.target.classList.contains('range')) {
+                ev.target.title = ev.target.value
+            }
+            listarDados();
+        });
+
+        function listarDados() {
+            fetch('select_produtos.php?pg=' + <?= $pg_atual ?>, {
+                    body: new FormData(form_filtro),
+                    method: 'POST'
+                })
+                .then((resposta) => {
+                    if (resposta.ok) return resposta.text()
+                })
+                .then((retorno) => {
+                    dados.innerHTML = retorno
+                })
+                .catch((e) => {
+                    console.log(`Mesagem de erro: ${e}`);
+                })
+        }
+
+        listaProdutos.addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('comprar')) { //verifica se existe botões comprar
+                const button = e.target;
+                adicionarCarrinho(button) //função dentro de add_carrinho.js
+            }
+        });
+    </script>
 </body>
 
 </html>

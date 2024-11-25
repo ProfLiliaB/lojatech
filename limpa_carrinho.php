@@ -16,6 +16,8 @@ if (isset($_GET['id'])) {
     } else {
         $_SESSION['carrinho'] = [];
     }
+} else {
+    $_SESSION['carrinho'] = [];
 }
 if ($pg) {
     header("location: $pg.php");

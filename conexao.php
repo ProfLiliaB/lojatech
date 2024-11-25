@@ -1,7 +1,7 @@
 <?php
 //padrão para criar uma conexãO
 $host = "localhost";
-$banco = "lojatech";
+$banco = "loja";
 $user = "root";
 $senha = "";
 try {

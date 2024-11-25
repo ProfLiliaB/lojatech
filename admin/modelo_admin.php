@@ -25,7 +25,7 @@ if(isset($_SESSION['email']) && $status > 0) {
 <body>
     <header>
         <?php
-        include_once "../menu.php";
+        include_once "menu.php";
         ?>
     </header>
     <main>

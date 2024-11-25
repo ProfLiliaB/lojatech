@@ -3,9 +3,7 @@ include_once "conexao.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $erro = "";
     $nome = $_POST['nome'];
-
     $padraoSenha = '~^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*\(\)\_\+\[\]\{\}\|\:\"\<\>\.\,\/\?\-]).{8,}$~';
-
     if (empty($nome) OR strlen($nome) < 3) {
         $erro .= "Digite um nome<br>";
     }

@@ -58,6 +58,7 @@ header {
     max-width: 100%;
     min-height: calc(100vh - 250px);
     padding: 2rem;
+    text-align: center;
 }
 
 .legenda {
