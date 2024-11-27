@@ -23,6 +23,7 @@
         <?php
         include_once "menu.php";
         include_once "conexao.php";
+        include_once "admin/config.php";
         ?>
     </header>
     <main>
@@ -38,11 +39,11 @@
             $selectPagto->execute([$payment_id]);
             $rp = $selectPagto->fetch(PDO::FETCH_ASSOC);
             $id_compra = $rp['compra_id'];
-            $select = $conexao->prepare("SELECT * FROM compra c, produto p, compra_itens i WHERE c.id_compra = i.id_compra &&  p.id_produto = i.id_produto && c.id_compra = ?");
+            $select = $conexao->prepare("SELECT *, p.valor as v FROM compra c, produto p, compra_itens i WHERE c.id_compra = i.id_compra &&  p.id_produto = i.id_produto && c.id_compra = ?");
             $select->execute([$id_compra]);
             while ($rs = $select->fetch()) {
-                $valor_produto = $rs['valor'];
-                $total_por_prod = floatval($rs['valor']) * floatval($rs['quantidade']);
+                $valor_produto = $rs['v'];
+                $total_por_prod = floatval($valor_produto) * floatval($rs['quantidade']);
                 echo "
                     <div>
                         " . $rs['nome_produto'] . " R$ " . number_format($valor_produto, 2, ', ', ' . ') . "

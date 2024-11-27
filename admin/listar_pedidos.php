@@ -28,6 +28,7 @@
         <?php
         include_once "menu.php";
         include_once "../conexao.php";
+        include_once "config.php";
         ?>
     </header>
     <main>
@@ -42,7 +43,7 @@
             //           echo "</pre>";
             //        }
             //    }
-            $url = "https://api.mercadopago.com/v1/payments/search?criteria=asc&range=date_created&begin_date=NOW-30DAYS&end_date=NOW";
+            $url = "https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=ID_REF&range=date_created&begin_date=NOW-30DAYS&end_date=NOW";
             $ch = curl_init();
             curl_setopt_array($ch, [
                 CURLOPT_URL => $url,

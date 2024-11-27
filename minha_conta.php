@@ -26,6 +26,7 @@ if ($_SESSION['id_usuario']) {
         <header>
             <?php
             include_once "menu.php";
+            include_once "admin/config.php";
             ?>
         </header>
         <main>
@@ -40,7 +41,7 @@ if ($_SESSION['id_usuario']) {
                 <div class="grid">
                     <h3>Meus pedidos</h3>
                     <?php
-                    $url = "https://api.mercadopago.com/v1/payments/search?criteria=asc&range=date_created&begin_date=NOW-30DAYS&end_date=NOW&external_reference=12&payer.id=$id_usuario";
+                    $url = "https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=ID_REF&range=date_created&begin_date=NOW-30DAYS&end_date=NOW&payer.id=$id_usuario";
                     $ch = curl_init();
                     curl_setopt_array($ch, [
                         CURLOPT_URL => $url,
@@ -53,7 +54,6 @@ if ($_SESSION['id_usuario']) {
                     $response = curl_exec($ch);
                     curl_close($ch);
                     $dados = json_decode($response, true);
-                    //echo $dados;
                     echo "<pre>";
                     print_r($dados);
                     echo "</pre>";
