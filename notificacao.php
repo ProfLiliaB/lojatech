@@ -3,19 +3,18 @@
 $data = file_get_contents("php://input");
 $notificacao = json_decode($data, true);
 include_once "conexao.php";
-// Verificar o tipo de notificação
+// Verifica o tipo de notificação
 if (isset($notificacao['type']) && $notificacao['type'] === 'payment') {
     $payment_id = $notificacao['data']['id']; // ID do pagamento enviado pelo Mercado Pago
-    // Faça uma requisição para obter detalhes do pagamento
-    $access_token = '';
-    $url = "https://api.mercadopago.com/v1/payments/$payment_id?access_token=$access_token";
+    //requisição para obter detalhes do pagamento
+    $url = "https://api.mercadopago.com/v1/payments/$payment_id?access_token=".CHAVE_API_MP;
     // Requisição para buscar detalhes do pagamento
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     curl_close($ch);
     $payment_info = json_decode($response, true);
-    // Verificar o status do pagamento e atualizar no banco
+    // Verifica o status do pagamento e atualizar no banco
     $compra_id = $payment_info['external_reference']; // ID da compra
     $status = $payment_info['status']; //Status do pagamento (approved, pending, etc.)
     // Atualize o status do pagamento no banco conforme o status recebido

@@ -43,14 +43,13 @@
             //        }
             //    }
             $url = "https://api.mercadopago.com/v1/payments/search?criteria=asc&range=date_created&begin_date=NOW-30DAYS&end_date=NOW";
-            $access_token = '';
             $ch = curl_init();
             curl_setopt_array($ch, [
                 CURLOPT_URL => $url,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HTTPHEADER => [
                     'Content-Type: application/json',
-                    'Authorization: Bearer ' . $access_token
+                    'Authorization: Bearer ' .CHAVE_API_MP
                 ]
             ]);
             $response = curl_exec($ch);

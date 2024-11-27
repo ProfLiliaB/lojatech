@@ -41,14 +41,13 @@ if ($_SESSION['id_usuario']) {
                     <h3>Meus pedidos</h3>
                     <?php
                     $url = "https://api.mercadopago.com/v1/payments/search?criteria=asc&range=date_created&begin_date=NOW-30DAYS&end_date=NOW&external_reference=12&payer.id=$id_usuario";
-                    $access_token = 'TEST-5232080259225545-042515-bfeaf6dff3b3fd59594bb4d9ffe6525f-22727655';
                     $ch = curl_init();
                     curl_setopt_array($ch, [
                         CURLOPT_URL => $url,
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_HTTPHEADER => [
                             'Content-Type: application/json',
-                            'Authorization: Bearer ' . $access_token
+                            'Authorization: Bearer ' . CHAVE_API_MP
                         ]
                     ]);
                     $response = curl_exec($ch);
