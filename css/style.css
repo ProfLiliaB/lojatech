@@ -115,6 +115,7 @@ dialog div {
     height: 70px;
     font-size: 1.3rem;
 }
+
 @keyframes fadeScale {
     from {
         opacity: 0;

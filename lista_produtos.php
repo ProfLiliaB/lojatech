@@ -23,13 +23,16 @@
         include_once "admin/config.php";
         include_once "conexao.php";
         $pg_atual = isset($_GET['pg']) ? intval($_GET['pg']) : 1;
-        $maiorValor = valoMaximo($conexao);
+        $categoria = $_GET['categoria'] ?? '';
+        $nome = $_GET['nome'] ?? '';
+        $maiorValor = $_GET['valor_max'] ?? valoMaximo($conexao);
+        $menorValor = $_GET['valor_min'] ?? 0;
+        $ordem = $_GET['ordem'] ?? "p.nome_produto ASC";
         ?>
         <section class="carrossel">
             <div class="container">
                 <form method="post" id="form_filtro">
-                    <input type="text" id="filtro" name="filtro" placeholder="Pesquisa"
-                        value="<?= $_SESSION['param']['filtro'] ?? '' ?>">
+                    <input type="text" id="filtro" name="filtro" placeholder="Pesquisa" value="<?=str_replace('%', '', $nome)?>">
                     <select id="categoria" name="categoria">
                         <option value="">Todos</option>
                         <?php
@@ -37,17 +40,23 @@
                         $select_cat->execute();
                         while ($res = $select_cat->fetch(PDO::FETCH_ASSOC)) {
                             $selected = "";
-                            $filto_cat =  $_SESSION['param']['categoria'] ?? '';
-                            if ($filto_cat == $res['id_categoria']) {
+                            if ($categoria == $res['id_categoria']) {
                                 $selected = 'selected';
                             }
                             echo '<option value="' . $res['id_categoria'] . '" ' . $selected . '>' . $res['nome_categoria'] . '</option>';
                         }
                         ?>
                     </select>
-                    <input id="valMax" class="range" name="valMax" type="range" min="0"
-                        max="<?=$maiorValor?>" value="<?= $_SESSION['param']['valMax'] ?? $maiorValor ?>" step="100" />
-                    <button id="limpar_filtros" class="btn"><i class="fa fa-trash"></i></button>
+                    <select name="ordem" id="ordem">
+                        <?php echo '<option value="'.$ordem.'">Ordenar</option>'; ?>
+                        <option value="p.nome_produto ASC">Nome</option>
+                        <option value="p.valor DESC">Maior Valor</option>
+                        <option value="p.valor ASC">Menor Valor</option>
+                        <option value="p.id_categoria ASC">Categoria</option>
+                    </select>
+                    <input type="number" name="estoque" id="estoque" value="<?=$estoque?>" step="1" style="width:40px;">
+                    <input id="valMax" class="range" name="valMax" type="range" min="0" max="<?=valoMaximo($conexao)?>" value="<?= $maiorValor ?>" step="100" title="Valor" />
+                    <button type="reset" id="limpar_filtros" class="btn"><i class="fa fa-trash"></i></button>
                 </form>
             </div>
         </section>

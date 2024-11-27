@@ -29,18 +29,16 @@
         ?>
     </header>
     <main>
-        <center>
-            <?php
-            $id_usuario = 0;
-            if (isset($_SESSION['nome'])) {
-                echo "<h2>Bem vindo, você está logado como " . $_SESSION['nome'] . "!</h2>";
-                $id_usuario = $_SESSION['id_usuario'];
-            } else {
-                echo "<h2>Bem vindo visitante!</h2>";
-                echo "<h3>Faça o <a href='login.php'>login</a> para uma melhor experiência</h3>";
-            }
-            ?>
-        </center>
+        <?php
+        $id_usuario = 0;
+        if (isset($_SESSION['nome'])) {
+            echo "<h2>Bem vindo, você está logado como " . $_SESSION['nome'] . "!</h2>";
+            $id_usuario = $_SESSION['id_usuario'];
+        } else {
+            echo "<h2>Bem vindo visitante!</h2>";
+            echo "<h3>Faça o <a href='login.php'>login</a> para uma melhor experiência</h3>";
+        }
+        ?>
         <div class="conteudo_central">
             <section class="carrinho">
                 <table>
@@ -101,7 +99,7 @@
                     </div>
                     <div class="frete">Frete R$ 00,00</div>
                     <div class="desconto_final">Descontos R$ 00,00</div>
-                    <div class="total_final">TOTAL A PAGAR R$ <?=$totalcarrinho?></div>
+                    <div class="total_final">TOTAL A PAGAR R$ <?= $totalcarrinho ?></div>
                     <div class="btn-finalizar"><a href="pagto.php"><i class="fa fa-money"></i> PAGAR </a></div>
                 </div>
             </section>

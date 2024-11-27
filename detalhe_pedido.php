@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,6 +22,7 @@
     <header>
         <?php
         include_once "menu.php";
+        include_once "conexao.php";
         ?>
     </header>
     <main>
@@ -28,42 +30,58 @@
             <?php
             include_once "conexao.php";
             $usuario = $_SESSION['id_usuario'];
-            $select = $conexao->prepare("SELECT * FROM compra c, produto p, compra_itens i WHERE c.id_compra = i.id_compra && p.id_produto = i.id_produto && id_usuario = ?");
-            $select->execute([$usuario]);
-            if ($select->rowCount() > 0) {
-                $rs = $select->fetch();
-                $selectPagto = $conn->prepare("SELECT * FROM `pagto` WHERE compra_id = ?");
-                $selectPagto->execute([$rs['id_compra']]);
-                $rp = $selectPagto->fetch(PDO::FETCH_ASSOC);
-                $payment_id = $rp['payment_id'];
-                
-                // $url = 'https://api.mercadopago.com/v1/payments/' . $payment_id;
-                // $access_token = '';
-                // $ch = curl_init();
-                // curl_setopt_array($ch, [
-                //     CURLOPT_URL => $url,
-                //     CURLOPT_RETURNTRANSFER => true,
-                //     CURLOPT_HTTPHEADER => [
-                //         'Content-Type: application/json',
-                //         'Authorization: Bearer ' . $access_token
-                //     ]
-                // ]);
-                // $response = curl_exec($ch);
-                // curl_close($ch);
-                // $dados = json_decode($response, true);
-                // echo "<pre>";
-                // print_r($dados);
-                // echo "</pre>";
+            $payment_id = $_GET['id'] ?? '';
+            if (!$payment_id) {
+                header('location: minha_conta.php');
             }
-            $valor_produto = $rs['valor'];
-            $total_por_prod = floatval($rs['valor']) * floatval($rs['quantidade']);
-            echo "
-            <div>
-                {$rs['nome_produto']} R$ ". number_format($valor_produto, 2, ', ', ' . ')."
-                 X {$rs['quantidade']} Total: R$ ". number_format($total_por_prod, 2, ', ', ' . ')."
-            </div>";
+            $selectPagto = $conexao->prepare("SELECT * FROM `pagto` WHERE payment_id = ?");
+            $selectPagto->execute([$payment_id]);
+            $rp = $selectPagto->fetch(PDO::FETCH_ASSOC);
+            $id_compra = $rp['compra_id'];
+            $select = $conexao->prepare("SELECT * FROM compra c, produto p, compra_itens i WHERE c.id_compra = i.id_compra &&  p.id_produto = i.id_produto && c.id_compra = ?");
+            $select->execute([$id_compra]);
+            while ($rs = $select->fetch()) {
+                $valor_produto = $rs['valor'];
+                $total_por_prod = floatval($rs['valor']) * floatval($rs['quantidade']);
+                echo "
+                    <div>
+                        " . $rs['nome_produto'] . " R$ " . number_format($valor_produto, 2, ', ', ' . ') . "
+                        X " . $rs['quantidade'] . " Total: R$ " . number_format($total_por_prod, 2, ', ', ' . ') . "
+                    </div>";
+            }
+            $url = 'https://api.mercadopago.com/v1/payments/' . $payment_id;
+            $access_token = '';
+            $ch = curl_init();
+            curl_setopt_array($ch, [
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HTTPHEADER => [
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $access_token
+                ]
+            ]);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $dados = json_decode($response, true);
+            // echo "<pre>";
+            // print_r($dados);
+            // echo "</pre>";
+            $dados = json_decode($response, true);
+            if (isset($dados['id'])) {
+                echo "<h1>Detalhes do Pagamento</h1>";
+                echo "<p>ID do Pagamento: " . htmlspecialchars($dados['id']) . "</p>";
+                echo "<p>Status: " . htmlspecialchars($dados['status']) . "</p>";
+                echo "<p>Produto: " . htmlspecialchars($dados['title']) . "</p>";
+                // echo "<p>Valor unitário: " . $dados['unit_price'] . " X ".$dados['quantity']."</p>";
+                echo "<p>Descrição: " . htmlspecialchars($dados['description']) . "</p>";
+                echo "<p>Valor: " . number_format($dados['transaction_amount'], 2, ',','.') . "</p>";
+                echo "<p>Email do Pagador: " . htmlspecialchars($dados['payer']['email']) . "</p>";
+                echo "<p>Tipo de pagamento: " . $dados['payment_type_id']. " " . $dados['payment_method_id']. "</p>";
+            } else {
+                echo "<p>Erro ao buscar detalhes do pagamento.</p>";
+            }
             ?>
-            
+
         </div>
     </main>
     <?php

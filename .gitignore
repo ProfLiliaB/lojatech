@@ -3,15 +3,16 @@
 Thumbs.db
 
 # Ignorar arquivo de conexão
-pagto.php
 conexao.php
-*.sql
-*.txt
+pagto.php
+
 # Ignorar arquivos antigos
 *_OLD.php
 
 # Ignorar arquivos de log
 *.log
+*.txt
+*.sql
 
 # Ignorar diretórios de dependências
 /vendor/

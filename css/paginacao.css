@@ -65,3 +65,7 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}

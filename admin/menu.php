@@ -1,4 +1,5 @@
 <nav id="nav">
+    <?php session_start();?>
     <a href="./" class="logo"><i class="icofont-micro-chip icofont-2x"></i></a>
     <ul>
         <li></li>
@@ -7,13 +8,18 @@
         <li><a href="listar_usuarios.php"><i class="icofont-duotone icofont-users"></i> Clientes</a></li>
         <li><a href="listar_compras.php"><i class="icofont-duotone icofont-cart"></i> Vendas</a></li>
         <li><a href="relatorio_compras.php"><i class="icofont-duotone icofont-chart"></i> Relatório</a></li>
-        <li><a href="#"><i class="icofont-duotone icofont-info-circle"></i> Notificações </a></li>
+        <li class="menu-not">
+            <a href="#" id="abreNotas">
+                <i class="icofont-duotone icofont-notification"></i>
+                <span class="notificacao" id="notificacao"></span>
+            </a>
+            <ul class="sub_menu_notas" id="sub_menu_notas">
+            </ul>
+        </li>
         <?php
-        @session_start();
         if (isset($_SESSION['email'])) {
             echo '<li><a href="../minha_conta.php"><i class="fa fa-user"></i> Minha Conta</a></li>
-            <li><a href="../logout.php"><i class="fa fa-close"></i> Sair</a></li>
-            ';
+            <li><a href="../logout.php"><i class="fa fa-close"></i> Sair</a></li>';
         }
         ?>
     </ul>
@@ -23,3 +29,7 @@
     <div id="errorMessage"></div>
     <button id="fechar">OK</button>
 </dialog>
+
+<script>
+    
+</script>

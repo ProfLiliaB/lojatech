@@ -16,16 +16,14 @@ if (isset($notificacao['type']) && $notificacao['type'] === 'payment') {
     curl_close($ch);
     $payment_info = json_decode($response, true);
     // Verificar o status do pagamento e atualizar no banco
-    //if ($payment_info['status'] === 'approved') {
-        $compra_id = $payment_info['external_reference'];// ID da compra
-        $status = $payment_info['status']; //Status do pagamento (approved, pending, etc.)
-        // Atualize o status do pagamento no banco conforme o status recebido
-        $update = $conexao->prepare("UPDATE compra SET status_compra = :stts WHERE id = :id");
-        $update->execute(["id"=> $compra_id, "stts"=> $status]);
-        http_response_code(200); // Confirma ao MP que a notificação foi recebida
-    //}
+    $compra_id = $payment_info['external_reference']; // ID da compra
+    $status = $payment_info['status']; //Status do pagamento (approved, pending, etc.)
+    // Atualize o status do pagamento no banco conforme o status recebido
+    $update = $conexao->prepare("UPDATE compra SET status_compra = :stts WHERE id = :id");
+    $update->execute(["id" => $compra_id, "stts" => $status]);
+    http_response_code(200); // Confirma ao MP que a notificação foi recebida
 } else {
     $add = $conexao->prepare("INSERT INTO notifica (nome_notifica, status_notifica) VALUES (:tipo, :stts)");
-    $add->execute(["tipo"=> $notificacao['type'], "stts"=> $payment_info['status']]);
-    http_response_code(200);// Confirma ao MP que a notificação foi recebida
+    $add->execute(["tipo" => $notificacao['type'], "stts" => $payment_info['status']]);
+    http_response_code(200); // Confirma ao MP que a notificação foi recebida
 }

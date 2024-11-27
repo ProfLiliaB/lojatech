@@ -87,7 +87,35 @@ header nav form button {
 .toggle {
     display: flex;
 }
+/*---------------------------------------*/
+/*|           SUBMENU NOTAS               |
+/*---------------------------------------*/
+.menu-not {
+    position: relative;
+}
 
+.notificacao {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    background-color: var(--laranja);
+    color: white;
+    font-size: 12px;
+    padding: 2px 7px;
+    border-radius: 50%;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.notificacao.visivel {
+    opacity: 1;
+    transform: translateY(0);
+}
+.sub_menu_notas {
+    display: none;
+}
+/*---------------------------------------*/
 @media screen and (max-width:425px) {
     header nav {
         align-items: flex-start;

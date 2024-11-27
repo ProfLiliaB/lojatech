@@ -74,19 +74,19 @@
         ?>
     </header>
     <main>
-        <div class="container_graf">
-            <div>
-                <canvas id="comprasGrafico" width="700"></canvas>
+        <div class="conteudo_central">
+            <div class="container_graf">
+                <div>
+                    <canvas id="comprasGrafico" width="700"></canvas>
+                </div>
+                <div>
+                    <canvas id="statusComprasGrafico" width="350"></canvas>
+                </div>
             </div>
-            <div>
-                <canvas id="statusComprasGrafico" width="350"></canvas>
-            </div>            
         </div>
     </main>
-    <footer>
-        <?php include_once "../footer.php"; ?>
-        <script src="../js/menu.js"></script>
-    </footer>
+    <?php include_once "../footer.php"; ?>
+    <script src="../js/menu.js"></script>
     <script>
         const labels = <?php echo json_encode($labels); ?>;
         const data = <?php echo json_encode($data); ?>;
@@ -164,7 +164,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Distribuição de Status das Compras em <?php echo $ano_atual; ?>'
+                        text: 'Compras em <?php echo $ano_atual; ?>'
                     },
                     legend: {
                         position: 'top',

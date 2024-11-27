@@ -19,13 +19,17 @@
         <?php
         include_once "menu.php";
         include_once "conexao.php";
+        include_once "admin/config.php";
         ?>
     </header>
     <main>
         <?php
-        $id_produto = $_GET["id_produto"];
+        $id_produto = $_GET["id"]??0;
+        if($id_produto === 0){
+            header("location: lista_produtos.php");
+        }
         // Consulta do produtos relacionado com a tabela de categorias
-        $sql = "SELECT * FROM produto INNER JOIN categoria ON produto.id_cat=categoria.id_cat WHERE id_produto = ?";
+        $sql = "SELECT * FROM produto p INNER JOIN categoria c ON p.id_categoria = c.id_categoria WHERE id_produto = ?";
         $stmt = $conexao->prepare($sql);
         $stmt->execute([$id_produto]);
         // laço para exibição de todos os registros que a query trouxe    
@@ -34,23 +38,32 @@
             $descricao_produto = $array['descricao_produto'];
             $valor_produto = $array['valor'];
             $nome_categoria = $array['nome_categoria'];
-            $conteudoImagem = $array['imagem'];
-            $base64Imagem = base64_encode($conteudoImagem);
         }
         ?>
         <div class="conteudo_central">
             <section id="produtos">
                 <div class="fotos">
+                    <?php
+                     $selectImg = $conexao->prepare("SELECT * FROM imagem WHERE id_produto = ?");
+                     $selectImg->execute([$id_produto]);
+                     if ($selectImg->rowCount()) {
+                         $imagem = $selectImg->fetchAll();
+                     }
+                    ?>
                     <div class="foto_principal">
                         <?php
-                        echo "<img src='data:image/jpeg;base64,{$base64Imagem}' width='280' alt='$nome_categoria'>"
+                        $img = imagemPrincipal($id_produto, $conexao);
+                        if($img) {
+                            echo "<img src='".DIRETORIO."/{$img}' width='280' alt='$nome_produto'>";
+                        }
                         ?>
                     </div>
                     <div class="galeria">
-                        <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
-                        <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
-                        <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
-                        <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
+                        <?php
+                        foreach ($imagem as $imgs) {
+                            echo "<img src='".DIRETORIO."/".$imgs['nome_imagem']."' width='70' alt='$nome_produto'>";
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="container_descricao">

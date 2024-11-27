@@ -49,7 +49,9 @@
     <header>
         <?php
         include_once "menu.php";
+        include_once "config.php";
         include_once "../conexao.php";
+        $id = $_GET['id'] ?? null;
         ?>
     </header>
     <main>
@@ -57,6 +59,7 @@
             <form method="post" id="form_cadastro" enctype="multipart/form-data">
                 <h1>Cadasrar Fotos</h1>
                 <div class="form_grupo">
+                <?php if(!$id) { ?>
                     <label for="produto">Produto: </label>
                     <select name="produto" id="produto" class="form_input">
                         <option value="">Selecione o produto</option>
@@ -68,14 +71,14 @@
                         }
                         ?>
                     </select>
+                    <?php } ?>
                 </div>
                 <!-- <div class="form_grupo">
                     <input type="file" name="foto" class="form_input">
                 </div> -->
                 <div class="form_grupo">
-                    <label>Arraste as imagens aqui ou clique para selecionar</label>
                     <div id="drop-area" class="drop-area">
-                        <input type="file" name="foto[]" id="foto" class="form_input" accept="image/*" hidden>
+                        <input type="file" name="foto[]" id="foto" class="form_input" accept="image/*" hidden multiple>
                         <p>Clique aqui ou arraste as imagens</p>
                     </div>
                     <div id="preview"></div>
@@ -90,25 +93,32 @@
             </form>
             <?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $principal = $_POST['principal'] ?? 0;
-                $id_prod = $_POST['produto'];
-                $nome_foto = $_FILES['foto']['name'];
-                $info = pathinfo($_FILES['foto']['name']);
-                $extensao = $info['extension'];
-                if ($extensao == 'jpg' || $extensao == 'png' || $extensao == 'jpeg') {
-                    $arquivo = "upload/foto_" . date('Ymdhis') . $id_prod . "." . $extensao;
-                    if (move_uploaded_file($_FILES['foto']['tmp_name'], $arquivo)) {
-                        $insert = $conexao->prepare("INSERT INTO imagem (nome_imagem, id_produto, status_imagem) VALUES (:nome, :id_prod, :stts)");
-                        $insert->bindParam('nome', $arquivo);
-                        $insert->bindParam('id_prod', $id_prod);
-                        $insert->bindParam('stts', $principal);
-                        if ($insert->execute()) {
-                            echo '<img src="' . $arquivo . '" alt="Foto do produto" width="300">';
-                            echo '<div class="alert-success">Foto cadastrada com sucesso!</div>';
-                        } else {
-                            echo '<div class="alert-danger">Foto NÃO cadastrada!</div>';
+                $i = 0;
+                while ($i < count($_FILES['foto']['name'])) {
+                    $principal = $_POST['principal'] ?? 0;
+                    $id_prod = isset($_POST['produto']) ? $_POST['produto'] : $id;
+                    $nome_foto = $_FILES['foto']['name'][$i];
+                    $info = pathinfo($_FILES['foto']['name'][$i]);
+                    $extensao = $info['extension']??'jpg';
+                    $tipos = ['jpg', 'png', 'jpeg', 'jfif', 'webp'];
+                    if (in_array($extensao, $tipos)) {
+                        $arquivo =  "foto_".date('Ymdhis') . $id_prod .$i. ".".$extensao;
+                        if (move_uploaded_file($_FILES['foto']['tmp_name'][$i], '../upload/'.$arquivo)) {
+                            $insert = $conexao->prepare("INSERT INTO imagem (nome_imagem, id_produto, status_imagem) VALUES (:nome, :id_prod, :stts)");
+                            $insert->bindParam('nome', $arquivo);
+                            $insert->bindParam('id_prod', $id_prod);
+                            $insert->bindParam('stts', $principal);
+                            if ($insert->execute()) {
+                                echo '<img src="../upload/'.$arquivo . '" alt="Foto do produto" width="150">';
+                                echo '<div class="alert-success">Foto cadastrada com sucesso!</div>';
+                            } else {
+                                echo '<div class="alert-danger">Foto NÃO cadastrada!</div>';
+                            }
                         }
+                    } else {
+                        echo " <h5>Tipo não permitido: ". $extensao."</h5>";
                     }
+                    $i++;
                 }
             }
             ?>
