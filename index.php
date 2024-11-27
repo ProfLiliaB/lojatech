@@ -62,7 +62,7 @@
                         </div>
                         <div class="card-body">
                             <a href="detalhes_produto.php">';
-                    echo '<img src="img/' . $imagem . '" width="200" />';
+                    echo '<img src="upload/' . $imagem . '" width="200" />';
                     echo '</a>
                         </div>
                         <div class="card-footer">

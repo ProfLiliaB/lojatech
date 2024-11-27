@@ -39,8 +39,8 @@
         ?>
         <section class="carrossel">
             <div class="container">
-            <form method="get" id="form_filtro">
-                    <input type="text" id="filtro" name="filtro" placeholder="Pesquisa" value="<?=str_replace('%', '', $nome)?>">
+                <form method="get" id="form_filtro">
+                    <input type="text" id="filtro" name="filtro" placeholder="Pesquisa" value="<?= str_replace('%', '', $nome) ?>">
                     <select id="categoria" name="categoria">
                         <option value="">Todos</option>
                         <?php
@@ -56,14 +56,17 @@
                         ?>
                     </select>
                     <select name="ordem" id="ordem">
-                        <?php echo '<option value="'.$ordem.'">Ordenar</option>'; ?>
+                        <?php echo '<option value="' . $ordem . '">Ordenar</option>'; ?>
                         <option value="p.nome_produto ASC">Nome</option>
                         <option value="p.valor DESC">Maior Valor</option>
                         <option value="p.valor ASC">Menor Valor</option>
                         <option value="p.id_categoria ASC">Categoria</option>
                     </select>
-                    <input type="number" name="estoque" id="estoque" value="<?=$estoque?>" step="1" style="width:40px;">
-                    <input id="valMax" class="range" name="valMax" type="range" min="0" max="<?=valoMaximo($conexao)?>" value="<?= $maiorValor ?>" step="100" title="Valor" />
+                    <input type="number" name="estoque" id="estoque" value="<?= $estoque ?>" step="1" style="width:40px;">
+                    <span class="range_valor">
+                        <input id="valMax" class="range" name="valMax" type="range" min="0" max="<?= valoMaximo($conexao) ?>" value="<?= $maiorValor ?>" step="100" title="Valor" />
+                        <span id="valorAtual">Até R$ <?= $maiorValor ?></span>
+                    </span>
                     <button type="reset" id="limpar_filtros" class="btn"><i class="fa fa-trash"></i></button>
                 </form>
             </div>
@@ -99,8 +102,12 @@
         listarDados();
         form_filtro.addEventListener('input', (ev) => {
             ev.preventDefault();
+            if (ev.target.classList.contains('range')) {
+                document.getElementById('valorAtual').innerText = `Até R$ ${ev.target.value}`
+            }
             listarDados();
         });
+
         function listarDados() {
             fetch('select_produtos.php?pg=' + <?= $pg_atual ?>, {
                     body: new FormData(form_filtro),

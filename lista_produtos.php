@@ -32,7 +32,8 @@
         <section class="carrossel">
             <div class="container">
                 <form method="post" id="form_filtro">
-                    <input type="text" id="filtro" name="filtro" placeholder="Pesquisa" value="<?=str_replace('%', '', $nome)?>">
+                    <input type="text" id="filtro" name="filtro" placeholder="Pesquisa"
+                        value="<?= str_replace('%', '', $nome) ?>">
                     <select id="categoria" name="categoria">
                         <option value="">Todos</option>
                         <?php
@@ -48,15 +49,17 @@
                         ?>
                     </select>
                     <select name="ordem" id="ordem">
-                        <?php echo '<option value="'.$ordem.'">Ordenar</option>'; ?>
+                        <?php echo '<option value="' . $ordem . '">Ordenar</option>'; ?>
                         <option value="p.nome_produto ASC">Nome</option>
                         <option value="p.valor DESC">Maior Valor</option>
                         <option value="p.valor ASC">Menor Valor</option>
                         <option value="p.id_categoria ASC">Categoria</option>
                     </select>
-                    <input type="number" name="estoque" id="estoque" value="<?=$estoque?>" step="1" style="width:40px;">
-                    <input id="valMax" class="range" name="valMax" type="range" min="0" max="<?=valoMaximo($conexao)?>" value="<?= $maiorValor ?>" step="100" title="Valor" />
-                    <button type="reset" id="limpar_filtros" class="btn"><i class="fa fa-trash"></i></button>
+                    <span class="range_valor">
+                        <input id="valMax" class="range" name="valMax" type="range" min="0" max="<?= valoMaximo($conexao) ?>" value="<?= $maiorValor ?>" step="100" title="Valor" />
+                        <span id="valorAtual">Até R$ <?= $maiorValor ?></span>
+                    </span>
+                    <button type="submit" id="limpar_filtros" class="btn"><i class="fa fa-trash"></i></button>
                 </form>
             </div>
         </section>
@@ -73,42 +76,42 @@
     <script src="js/menu.js"></script>
     <script src="js/add_carrinho.js"></script>
     <script>
-        const list_filtros = document.getElementById('list_filtros')
-        const listaProdutos = document.getElementById('lista_produtos')
-        listaProdutos.innerHTML = "Carregando...";
-        const form_filtro = document.getElementById('form_filtro');
-        const dados = document.getElementById('lista_produtos');
-        listarDados();
-        form_filtro.addEventListener('input', (ev) => {
-            ev.preventDefault();
-            if(ev.target.classList.contains('range')) {
-                ev.target.title = ev.target.value
-            }
-            listarDados();
-        });
-
-        function listarDados() {
-            fetch('select_produtos.php?pg=' + <?= $pg_atual ?>, {
-                    body: new FormData(form_filtro),
-                    method: 'POST'
-                })
-                .then((resposta) => {
-                    if (resposta.ok) return resposta.text()
-                })
-                .then((retorno) => {
-                    dados.innerHTML = retorno
-                })
-                .catch((e) => {
-                    console.log(`Mesagem de erro: ${e}`);
-                })
+    const list_filtros = document.getElementById('list_filtros')
+    const listaProdutos = document.getElementById('lista_produtos')
+    listaProdutos.innerHTML = "Carregando...";
+    const form_filtro = document.getElementById('form_filtro');
+    const dados = document.getElementById('lista_produtos');
+    listarDados();
+    form_filtro.addEventListener('input', (ev) => {
+        ev.preventDefault();
+        if (ev.target.classList.contains('range')) {
+            document.getElementById('valorAtual').innerText = `Até R$ ${ev.target.value}`
         }
+        listarDados();
+    });
 
-        listaProdutos.addEventListener('click', (e) => {
-            if (e.target && e.target.classList.contains('comprar')) { //verifica se existe botões comprar
-                const button = e.target;
-                adicionarCarrinho(button) //função dentro de add_carrinho.js
-            }
-        });
+    function listarDados() {
+        fetch('select_produtos.php?pg=' + <?= $pg_atual ?>, {
+                body: new FormData(form_filtro),
+                method: 'POST'
+            })
+            .then((resposta) => {
+                if (resposta.ok) return resposta.text()
+            })
+            .then((retorno) => {
+                dados.innerHTML = retorno
+            })
+            .catch((e) => {
+                console.log(`Mesagem de erro: ${e}`);
+            })
+    }
+
+    listaProdutos.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('comprar')) { //verifica se existe botões comprar
+            const button = e.target;
+            adicionarCarrinho(button) //função dentro de add_carrinho.js
+        }
+    });
     </script>
 </body>
 

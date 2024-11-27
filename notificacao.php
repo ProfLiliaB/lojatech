@@ -7,7 +7,7 @@ include_once "conexao.php";
 if (isset($notificacao['type']) && $notificacao['type'] === 'payment') {
     $payment_id = $notificacao['data']['id']; // ID do pagamento enviado pelo Mercado Pago
     // Faça uma requisição para obter detalhes do pagamento
-    $access_token = 'TEST-5232080259225545-042515-bfeaf6dff3b3fd59594bb4d9ffe6525f-22727655';
+    $access_token = '';
     $url = "https://api.mercadopago.com/v1/payments/$payment_id?access_token=$access_token";
     // Requisição para buscar detalhes do pagamento
     $ch = curl_init($url);

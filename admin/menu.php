@@ -30,6 +30,4 @@
     <button id="fechar">OK</button>
 </dialog>
 
-<script>
-    
-</script>
+<script src="../js/notificacoes.js"></script>

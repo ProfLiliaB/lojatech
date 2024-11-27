@@ -50,7 +50,7 @@
                     </div>";
             }
             $url = 'https://api.mercadopago.com/v1/payments/' . $payment_id;
-            $access_token = '';
+            $access_token = 'TEST-5232080259225545-042515-bfeaf6dff3b3fd59594bb4d9ffe6525f-22727655';
             $ch = curl_init();
             curl_setopt_array($ch, [
                 CURLOPT_URL => $url,
