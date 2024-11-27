@@ -30,7 +30,7 @@
         include_once "menu.php";
         include_once "../conexao.php";
         $ano_atual = date('Y');
-        $sql = "SELECT MONTH(data_compra) AS mes, COUNT(*) AS total_compras FROM COMPRA WHERE YEAR(data_compra) = :ano GROUP BY MONTH(data_compra) ORDER BY MONTH(data_compra)";
+        $sql = "SELECT MONTH(data_compra) AS mes, COUNT(*) AS total_compras FROM compra WHERE YEAR(data_compra) = :ano GROUP BY MONTH(data_compra) ORDER BY MONTH(data_compra)";
         $stmt = $conexao->prepare($sql);
         $stmt->execute([':ano' => $ano_atual]);
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -61,7 +61,7 @@
             $data[] = $total;
         }
         //Grafico de Pizza dos status das compras
-        $sql_status = "SELECT status_compra, COUNT(*) AS total FROM COMPRA WHERE YEAR(data_compra) = :ano GROUP BY status_compra";
+        $sql_status = "SELECT status_compra, COUNT(*) AS total FROM compra WHERE YEAR(data_compra) = :ano GROUP BY status_compra";
         $stmt_status = $conexao->prepare($sql_status);
         $stmt_status->execute([':ano' => $ano_atual]);
         $resultados_status = $stmt_status->fetchAll(PDO::FETCH_ASSOC);

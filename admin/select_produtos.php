@@ -85,32 +85,32 @@
         $inicio = ($pg_atual - 1) * $itens_por_pg + 1;
         $fim = min($pg_atual * $itens_por_pg, $total_registros);
         echo '
-    <tr>
-        <td colspan="7">
-            <div id="paginacao">';
+        <tr>
+            <td colspan="7">
+                <div id="paginacao">';
+            echo "
+                    <nav>
+                        <ul>
+                            <li><a href='?pg=1&$query_string' class='" . $desa_primeira . "'> << </a></li>
+                            <li><a href='?pg=" . $pg_inicial . "&$query_string' class='" . $desa_primeira . "'> < </a></li>";
+                            for ($i = 1; $i <= $n_paginas; $i++) {
+                                $ativo = $i == $pg_atual ? "ativo" : "";
+                                echo "<li><a href='?pg=$i&$query_string' class='$ativo'>$i</a></li>";
+                            }
+                            echo "
+                            <li><a href='?pg=" . $pg_final . "&$query_string' class='" . $desa_ultima . "'> > </a></li>
+                            <li><a href='?pg=$n_paginas&$query_string' class='" . $desa_ultima . "'> >> </a></li>
+                        </ul>
+                    </nav>";
+                echo '
+                </div>
+            </td>
+        </tr>';
         echo "
-                <nav>
-                    <ul>
-                        <li><a href='?pg=1&$query_string' class='" . $desa_primeira . "'> << </a></li>
-                        <li><a href='?pg=" . $pg_inicial . "&$query_string' class='" . $desa_primeira . "'> < </a></li>";
-                        for ($i = 1; $i <= $n_paginas; $i++) {
-                            $ativo = $i == $pg_atual ? "ativo" : "";
-                            echo "<li><a href='?pg=$i&$query_string' class='$ativo'>$i</a></li>";
-                        }
-                        echo "
-                        <li><a href='?pg=" . $pg_final . "&$query_string' class='" . $desa_ultima . "'> > </a></li>
-                        <li><a href='?pg=$n_paginas&$query_string' class='" . $desa_ultima . "'> >> </a></li>
-                    </ul>
-                </nav>";
-            echo '
-            </div>
-        </td>
-    </tr>';
-        echo "
-    <tr>
-        <td colspan='7'>
-            <h5>$inicio a $fim de $total_registros produtos</h5>
-        </td>
-    </tr>";
+        <tr>
+            <td colspan='7'>
+                <h5>$inicio a $fim de $total_registros produtos</h5>
+            </td>
+        </tr>";
         ?>
     </tfoot>

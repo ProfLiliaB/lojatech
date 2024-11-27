@@ -31,7 +31,7 @@
     <main>
         <div class="conteudo_central">
             <h1>Bem vindo à Lojatech ADM</h1>
-            <div><a href="relatorio_compras.php">Relatório de Compras</a></div>
+            <h4><a href="relatorio_compras.php">Relatório de Compras</a></h4>
         </div>        
     </main>
     <?php
