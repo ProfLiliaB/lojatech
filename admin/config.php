@@ -36,5 +36,5 @@ function imagemPrincipal($id, $con) {
         return false;
     }
 }
-define('CHAVE_API_MP', "TEST-5232080259225545-042515-bfeaf6dff3b3fd59594bb4d9ffe6525f-22727655");
+define('CHAVE_API_MP', "");
 define("DIRETORIO", "./upload");
